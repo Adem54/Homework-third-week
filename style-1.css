@@ -28,7 +28,6 @@ html {
         width: 100%;
         height: auto;
         margin-left:30px;
-     /* Site sola kaydı bizde yama yaptık ama asıl problemi bulmaya çalışalım */
         background-color: #ffffff;
   }
   
@@ -551,20 +550,6 @@ html {
                  }
 
                  /*image-1 resim içi yazı */
-                 .image-1-wrap::after {
-                    content:" ";
-                    position:absolute;
-                    width:100%;
-                    height:100%;
-                    top:0;
-                    bottom:0;
-                    right:0;
-                    left:0;
-                    background-color:#000;
-                    z-index: 2;
-                    opacity:0.3;
-                    }
-                    
 
                 .image-1-wrap {
                      position:relative;
@@ -577,17 +562,10 @@ html {
                       }
                       .image-1p {
                          font-size:16px;
-                         margin-bottom:60px;
-                         position:relative;
-                         z-index: 3;
+                         margin-bottom:80px;
                         }
                         .image-1span {
                            font-size:14px;
-                           display:block;
-                           width:200px;
-                           margin-bottom:10px;
-                           position:relative;
-                           z-index: 3;
                         } 
                             
                             /*image-3 resim içi yazı */
@@ -1289,9 +1267,61 @@ html {
                 }
                    
 
-
-
-                   
+                .first-row {
+                    width:100%;
+                    background-color:#F5F5F5;
+                    display:flex;
+                    justify-content:space-evenly;
+                    flex-wrap:wrap;
+                    }
+                    .first-row>div:nth-child(1) {
+                    flex:2 2 100%;
+                    }
+                    .first-row>div:nth-child(2) {
+                    flex:2 2 50%;
+                    margin:10px;
+                    }
+                    .first-row>div:nth-child(3) {
+                    flex:2 2 50%;
+                    margin:10px;
+                    } 
+                    .image-1-wrap>img {
+                    width:100%;
+                    max-height:320px;
+                    object-fit: cover;
+                    object-position: center;
+                    position:relative;
+                    }
+                    /*Resmin arkasına siyah şerit çektik 
+                    ve üzerinde beyaz yazı daha net gözükmesi 
+                    için bunu light resimler üzerine beyaz yazı
+                    yazacksak yapabiliriz */
+                    .image-1-wrap::after {
+                    content:" ";
+                    position:absolute;
+                    width:100%;
+                    height:100%;
+                    top:0;
+                    bottom:0;
+                    right:0;
+                    left:0;
+                    background-color:#000;
+                    z-index: 2;
+                    opacity:0.3;
+                    }
+                    .image-1p {
+                    width:400px;
+                    line-height: 26px;
+                    font-size:18px;
+                    margin-bottom:30px;
+                    position:relative;
+                    z-index: 3;
+                    }
+                    .image-1span {
+                    font-size:14px;
+                    position:relative;
+                    z-index: 3;
+                    } 
                     
                  
                    
