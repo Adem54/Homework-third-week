@@ -17,6 +17,7 @@ html {
       font-family: Roboto, sans-serif;
       /* line-height: 1.6;  */
       display: block;
+      
   }
         
     *,
@@ -27,9 +28,11 @@ html {
       .container {
         width: 100%;
         height: auto;
-        margin-left:30px;
-     /* Site sola kaydı bizde yama yaptık ama asıl problemi bulmaya çalışalım */
+        
+       /*  margin-left:33px;
+     Site sola kaydı bizde yama yaptık ama asıl problemi bulmaya çalışalım */
         background-color: #ffffff;
+        
   }
   
         .global-header {
@@ -357,12 +360,13 @@ html {
                }
               .image {
                   max-width:100%;
+               
                  /* margin-top: -50px; */
-                 
+                }
               
                
                   
-              }
+              
               .top-wrap {
                   position:absolute;
                   width:100%;
@@ -448,7 +452,10 @@ html {
                   background-color:#4285f4;
                  }
 
-                 .first-row-wrap {
+/* ------------------------------------------------*/
+
+
+               .first-row-wrap {
                     width:100%;
                     height:auto;
                     background-color:#F5F5F5;
@@ -481,19 +488,6 @@ html {
                     justify-content:space-evenly;
                 }
                     
-                 
-                 
-                 .first-row>div>img {
-                     max-width:100%;
-                    /* min-height:340px; */
-                     object-fit: cover;
-                     object-position:center;
-                  
-                    }
-                     
-                    
-                     
-                
 
                  .first-row>div:nth-child(1) {
                     flex:2 2 50%;
@@ -520,12 +514,14 @@ html {
                     display:flex;
                     justify-content:space-evenly;
                      padding-bottom:50px; /* */
+                    
                    
                  
                 }
                   
                 .second-row>div>img {
                     max-width:100%;
+                   
                    /* min-height:340px; */
                     object-fit: cover;
                     object-position:bottom;
@@ -534,7 +530,11 @@ html {
                 
 
                  .second-row>div:nth-child(n+1):nth-child(-n+2) {
-                    flex:2 2 calc(25% - 20px);
+                    flex:2 2 calc(25% - 20px); /*
+                    Burada calc kullanma sebebimiz first row daki 50% lik resmin altında denk gelen iki resim ile
+                    first-row daki 50% resim alt alta tam hizalanmıyor ve iki resim 25% er den 50% olmsına rağmen
+                    ara boşluğın fazla ollmasından üstündeki 50%lik resimden daha geniş gözüküyor
+                    */
                     margin:10px;
                      
                  }
@@ -549,26 +549,52 @@ html {
                     margin:10px;
                      
                  }
-
+/*
+ÖNEMLİİİİİİİ!!!!!!
+Burada öncelikle hem resme hem de onu kavrayan dive min height verdik ki ekran küçülünce resimler de 
+kendi oranlarına göre küçülüyor ve bir i az biri fazla küçülüyor görüntü bozuluyor bizde yüksekliği
+min standarta aldık ancak şuna dikkat edelim ilk resim 100% yükseklikte 2 ve 3.resimler ise 50% yüksekliğinde
+bundan dolayı ilk resme min-height:340 derken 2 ve 3.resme min-height:170px diyoruz ancak hepsinin kavrayan
+div leri aynı yükseklikte olduğu için her üç kavarayan dive de min-height:340px diyoruz */
+/*ÖNEMLİ!!!!!
+Özellikle kart tasarımı gibi tasarımlarda üstte resim altta yazı olan ve yazılara arası boşluklar olan
+tasarımlar yapılırken mümkün se yazılar arası boşlukları biz direk yazıların kendisine margin 
+vererek yapmamız çok mantıklı bir hareket değil çünkü height i sınırlandırdığımızda ekranın küçülmesinde 
+direk yazılar birbirini itecektir ve yazılar dışarı taşacaktır ancak biz kendi lerine margin vererek değilde
+bunu flex box ile yaparsak o zaman daha mantıklı olur ve o tür sorunlar almayız
+*/
                  /*image-1 resim içi yazı */
+                 /*Burada da önemli bir şey şu ki img ye biz min-height 340px verirken üzerine çektiğimiz
+                 yazının daha rahat gözükmesi için opacity düşürülmüş image-1-wrap:after kısmına biz 
+                 max-height verirsek dışarı taşma olmaz öbür türlü dışarı taşıyor bu da problem olur
+                 Yani resme min height 340px resmin içindeki div e de  max height 340 px verirsek beraber hareket 
+                 etmiş olurlar */
                  .image-1-wrap::after {
                     content:" ";
                     position:absolute;
-                    width:100%;
-                    height:100%;
-                    top:0;
-                    bottom:0;
+                    width: 100%;
+                    max-height:340px;
+                    top:0px;
+                    bottom:0px;
                     right:0;
                     left:0;
                     background-color:#000;
                     z-index: 2;
                     opacity:0.3;
                     }
-                    
-
+                  
                 .image-1-wrap {
                      position:relative;
+                     max-height:340px;
                     }
+                     
+                    .image-1-wrap>img {
+                        max-width:100%;
+                        object-fit: cover;
+                        object-position:center;
+                        min-height:340px;
+                    }
+                   
                     .image-1div {
                        position:absolute;
                        left:30px;
@@ -594,12 +620,23 @@ html {
 
                 .image-3-wrap {
                     position:relative;
+                    min-height:340px;
+                    display:flex;
+                    flex-direction: column;
+                    
                    }
                    .image-3-wrap>img {
                        position:relative;
                        z-index:3;
                        max-width:100%;
+                       min-height:170px;
                    }
+                   .image-3-wrap>img {
+                    max-width:100%;
+                    object-fit: cover;
+                    object-position:center;
+                    min-height:170px;
+                }
                    .image-3div {
 
                       /* position:absolute;
@@ -609,35 +646,53 @@ html {
                       width:100%;
                       height:50%;
                       background-color:#fff;
-                      margin-top:-3px;
+                      margin-top:0px;
+                      display:flex;
+                      flex-direction:column;
+                      align-items:center;
+                      justify-content:space-between;
                       
                       color:#000;
                       box-sizing:border-box;
-                      padding-top:20px;
-                      padding-left:30px;
+                      padding-bottom:30px;
+                      /* padding-left:30px;  */
                       /* border:1px solid #000; */
                      }
                      .image-3p {
                          width:80%;
                         font-size:15px;
-                        margin-bottom:55px;
+                       /* margin-bottom:55px; */
                         text-align: center;
                         line-height:25px;
-                        margin-left:10px;
+                      /*  margin-left:10px; */
                     }
                     .image-3span {
                        font-size:12px;
-                       margin-left:25%;
+                      /* margin-left:25%;*/
+                       text-align: center;
+                       
                        } 
 
                         /*image-thumbnail resim içi yazı */
-                        .thumbnail-wrap-wrap {
+                        .thumbnail-wrap {
                             position:relative;
+                            min-height:340px;
+                            display:flex;
+                            flex-direction: column;
+                   
                            }
                            .thumbnail-wrap>img {
                                position:relative;
                                z-index:3;
+                               min-height:170px;
                            }
+
+                           .thumbnail-wrap>img {
+                            max-width:100%;
+                            object-fit: cover;
+                            object-position:center;
+                            max-height:170px;
+                        }
                            .image-thumbnaildiv {
         
                               /* position:absolute;
@@ -647,124 +702,209 @@ html {
                               width:100%;
                               height:50%;
                               background-color:#fff;
-                              margin-top:-3px;
+                              margin-top:px;
+                              display:flex;
+                              flex-direction:column;
+                              align-items:center;
+                              justify-content:space-between;
                               
                               color:#000;
                               box-sizing:border-box;
-                              padding-top:20px;
-                              padding-left:30px;
-                              /* border:1px solid #000; */
+                              padding-bottom:30px;
+                              /* padding-left:30px;
+                              border:1px solid #000; */
                              }
                              .image-thumbnailp {
                                  width:80%;
                                 font-size:15px;
-                                margin-bottom:55px;
+                               /*  margin-bottom:55px; */
                                 text-align: center;
                                 line-height:25px;
-                                margin-left:10px;
+                              /*  margin-left:10px; */
                             }
                             .image-thumbnailspan{
                                font-size:12px;
-                               margin-left:25%;
+                             /*  margin-left:25%; */
                                } 
 
                                  /*image-4 resim içi yazı */
 
-                .image-4-wrap {
-                    position:relative;
-                   }
-                   .image-4-wrap>img {
-                       position:relative;
-                       z-index:3;
-                   }
-                   .image-4div {
+              /*ÇOK ENTERESAN BİR TEK BURDA image-4-wrap class ına verdiğimiz özellikleri uygulamıyor bunu da html kısmında inline style 
+              yazınca fakettik şimdilik probblemleri inline style ile çözdük ama bunun sebebine bakalı ayrıca  */
+                                 .image-4-wrap {
+                                    position:relative;
+                                    min-height:340px;
+                                    display:flex;
+                                    flex-direction: column;
+                                    background-color:Red;
+                                    border:1px solid;
+                                  
+                                    
+                                   }
+                                   .image-4-wrap>img {
+                                       position:relative;
+                                       z-index:3;
+                                       max-width:100%;
+                                       min-height:170px;
+                                   }
+                                   .image-4-wrap>img {
+                                    max-width:100%;
+                                    object-fit: cover;
+                                    object-position:center;
+                                    min-height:170px;
 
-                      /* position:absolute;
-                      z-index:2;
-                      left:0px;
-                      bottom:0px; */
-                      width:100%;
-                      height:53%;/*burasının %53 yaptık yukardakiler 50% de oturdu bu neden böyle oldu acep?? */
-                      background-color:#fff;
-                      margin-top:-2px;
-                      
-                      color:#000;
-                      box-sizing:border-box;
-                      padding-top:20px;
-                      padding-left:30px;
-                      /* border:1px solid #000; */
-                     }
-                     .image-4p {
-                         width:80%;
-                        
-                        font-size:15px;
-                        margin-bottom:70px;
-                        text-align: center;
-                        line-height:25px;
-                        margin-left:10px;
-                    }
-                    .image-4span {
-                       font-size:12px;
-                       margin-left:20%;
-                       } 
+                                }
+                                   .image-4div {
+                
+                                      /* position:absolute;
+                                      z-index:2;
+                                      left:0px;
+                                      bottom:0px; */
+                                      width:100%;
+                                      height:50%; /*Burda bir oturmama problemi oldu normalde 50% ile oturuyor
+                                      diğerlerindee ayrıca üstteki resim ile alttaki yazı kısmı arasında  boşluk
+                                      kalıyor normalde yine flex ile yaptık diğerlerinde boşluk kalmadı 
+                                      bir tek bunda kaldı buna da bakalım ayrıca şimdilik ufak müdahelelerle 
+                                      çözüp geçiyoruz sonra asıl probleme bakabiliriz */
+                                      background-color:#fff;
+                                      margin-top:px;
+                                      display:flex;
+                                      flex-direction:column;
+                                      align-items:center;
+                                      justify-content:space-between;
+                                      
+                                      color:#000;
+                                      box-sizing:border-box;
+                                      padding-bottom:30px;
+                                      /* padding-left:30px;  */
+                                      /* border:1px solid #000; */
+                                     }
+                                     .image-4p {
+                                         width:80%;
+                                        font-size:15px;
+                                       /* margin-bottom:55px; */
+                                        text-align: center;
+                                        line-height:25px;
+                                      /*  margin-left:10px; */
+                                    }
+                                    .image-4span {
+                                       font-size:12px;
+                                      /* margin-left:25%;*/
+                                       text-align: center;
+                                       
+                                       } 
                          /*image-2 resim içi yazı */
 
-                .image-2-wrap {
-                    position:relative;
-                   }
-                   .image-2-wrap>img {
-                       position:relative;
-                       z-index:3;
-                   }
-                   .image-2div {
-
-                      /* position:absolute;
-                      z-index:2;
-                      left:0px;
-                      bottom:0px; */
-                      width:100%;
-                      height:53%;/*burasının %53 yaptık yukardakiler 50% de oturdu bu neden böyle oldu acep?? */
-                      background-color:#fff;
-                      margin-top:-3px;
-                      
-                      color:#000;
-                      box-sizing:border-box;
-                      padding-top:20px;
-                      padding-left:30px;
-                      /* border:1px solid #000; */
-                     }
-                     .image-2p {
-                         width:80%;
-                        font-size:15px;
-                        margin-bottom:45px;
-                        text-align: center;
-                        line-height:25px;
-                        margin-left:10px;
-                    }
-                    .image-2span {
-                       font-size:12px;
-                       margin-left:25%;
-                       } 
+              
+                         .image-2-wrap {
+                            position:relative;
+                            min-height:340px;
+                            display:flex;
+                            flex-direction: column;
+                          
+                            
+                           }
+                           .image-2-wrap>img {
+                               position:relative;
+                               z-index:3;
+                               max-width:100%;
+                               min-height:170px;
+                           }
+                           .image-2-wrap>img {
+                            max-width:100%;
+                            object-fit: cover;
+                            object-position:center;
+                            min-height:170px;
+                        }
+                           .image-2div {
+        
+                              /* position:absolute;
+                              z-index:2;
+                              left:0px;
+                              bottom:0px; */
+                              width:100%;
+                              height:54%; /*Burda bir oturmama problemi oldu normalde 50% ile oturuyor
+                              diğerlerindee ayrıca üstteki resim ile alttaki yazı kısmı arasında  boşluk
+                              kalıyor normalde yine flex ile yaptık diğerlerinde boşluk kalmadı 
+                              bir tek bunda kaldı buna da bakalım ayrıca şimdilik ufak müdahelelerle 
+                              çözüp geçiyoruz sonra asıl probleme bakabiliriz */
+                              background-color:#fff;
+                              margin-top:-5px;
+                              display:flex;
+                              flex-direction:column;
+                              align-items:center;
+                              justify-content:space-between;
+                              
+                              color:#000;
+                              box-sizing:border-box;
+                              padding-bottom:30px;
+                              /* padding-left:30px;  */
+                              /* border:1px solid #000; */
+                             }
+                             .image-2p {
+                                 width:80%;
+                                font-size:15px;
+                               /* margin-bottom:55px; */
+                                text-align: center;
+                                line-height:25px;
+                              /*  margin-left:10px; */
+                            }
+                            .image-2span {
+                               font-size:12px;
+                              /* margin-left:25%;*/
+                               text-align: center;
+                               
+                               } 
                        /*image-5 resim içi yazı */
 
-                .image-5-wrap {
-                    position:relative;
-                   }
-                   .image-5div {
-                      position:absolute;
-                      left:30px;
-                      bottom:30px;
-                      color:#fff;
-                     }
-                     .image-5p {
-                         width:70%;
-                        font-size:16px;
-                        line-height:25px;
-                        margin-bottom:80px;
-                       }
-                       .image-5span {
-                          font-size:12px;
-                          }  
+                       .image-5-wrap::after {
+                        content:" ";
+                        position:absolute;
+                        width: 100%;
+                        max-height:340px;
+                        top:0px;
+                        bottom:0px;
+                        right:0;
+                        left:0;
+                        background-color:#000;
+                        z-index: 2;
+                        opacity:0.3;
+                        }
+                      
+                    .image-5-wrap {
+                         position:relative;
+                         max-height:340px;
+                        }
+                         
+                        .image-5-wrap>img {
+                            max-width:100%;
+                            object-fit: cover;
+
+                            min-height:340px;
+                        }
+                       
+                        .image-5div {
+                           position:absolute;
+                           left:30px;
+                           bottom:30px;
+                           color:#fff;
+                          }
+                          .image-5p {
+                              width:400px;
+                             font-size:17px;
+                             margin-bottom:60px;
+                             position:relative;
+                             z-index: 3;
+                             line-height:24px;
+                            }
+                            .image-5span {
+                               font-size:14px;
+                               display:block;
+                               width:200px;
+                               margin-bottom:10px;
+                               position:relative;
+                               z-index: 3;
+                            } 
                         
                           .article-main {
                               width:100%;
@@ -779,8 +919,8 @@ html {
                               justify-content:space-between;
                               align-items: flex-start;/*Burada üst başlık hizalarını eşitleriz bu şekilde
                               önemli bir işimizi görmüş oldu */
-
-                          }
+                            }
+                          
 
                           .article-1 {
                           flex:1 1 33%;
@@ -790,6 +930,16 @@ html {
                            flex-direction:column;
                            justify-content:space-evenly;
 
+                        }
+
+                        .fa-sourcetree {
+                            margin-left:4px;
+                        }
+                        .fa-chart-line {
+                            margin-left:4px;
+                        }
+                        .fa-shopping-bag {
+                            margin-left:4px;
                         }
                         .article-1>h3 {
                             margin-bottom:20px;
@@ -895,7 +1045,7 @@ html {
                         height:auto;
                         /*padding ile yazılarımızın sağa sola aşağı yukarı boşluklarını ayarlıyoruz ancak biz buradan ayarlarken üstteki resim
                         kısmını boyutu büyüyor bu neden olabilir.Bende img height 45% yi 40% a indirdim o zaman tam oturdu */
-                    padding:20px 30px 10px 20px;   
+                        padding:20px 30px 10px 20px;   
                         box-sizing:border-box;
                        
                     }
@@ -905,29 +1055,29 @@ html {
                         box-shadow: 1px 1px 5px;
                         position:relative;
                     }
-                       
+                      
                   .image-culture-h3 {
                     color:#424242;
-                    font-size:16px;
+                    font-size:18px;
                     font-family:Roboto, sans-serif;
                     /* margin:20px 0 0 20px; */
                   }
                   .image-culture-p {
                       margin-top:20px;
-                      line-height:20px;
-                      font-size:12px;
-                      margin-bottom:80px;
+                      line-height:24px;
+                      font-size:14px;
+                      margin-bottom:0px;
                      /* margin:20px 40px 10px 20px; */
                   }
                   .image-culture-a {
                       text-decoration:none;
-                     font-size:12px;
+                     font-size:14px;
                      font-weight: bolder;
                      /* margin:20px 0 10px 20px; */
                      position:absolute;
                      bottom:0;
 
-                  }
+                  } 
 
                      /* %25 image -competitive */ 
                      .image-competitive {
@@ -950,19 +1100,19 @@ html {
                        
                   .image-competitive-h3 {
                     color:#424242;
-                    font-size:16px;
+                    font-size:18px;
                     font-family:Roboto, sans-serif;
                     /* margin:20px 0 0 20px; */
                   }
                   .image-competitive-p {
                       margin-top:20px;
-                      line-height:20px;
-                      font-size:12px;
+                      line-height:24px;
+                      font-size:14px;
                      /* margin:20px 40px 10px 20px; */
                   }
                   .image-competitive-a {
                       text-decoration:none;
-                     font-size:12px;
+                     font-size:14px;
                      font-weight: bolder;
                      display: block;
                      position:absolute;
@@ -997,19 +1147,19 @@ html {
                    
               .image-consumer-h3 {
                 color:#424242;
-                font-size:16px;
+                font-size:18px;
                 font-family:Roboto, sans-serif;
                 /* margin:20px 0 0 20px; */
               }
               .image-consumer-p {
                   margin-top:20px;
-                  line-height:20px;
-                  font-size:12px;
+                  line-height:24px;
+                  font-size:14px;
                  /* margin:20px 40px 10px 20px; */
               }
               .image-consumer-a {
                   text-decoration:none;
-                 font-size:12px;
+                 font-size:14px;
                  font-weight: bolder;
                  /* margin:20px 0 10px 20px; */
                  position:absolute;
@@ -1040,19 +1190,19 @@ html {
                
           .image-diagnostic-h3 {
             color:#424242;
-            font-size:16px;
+            font-size:18px;
             font-family:Roboto, sans-serif;
             /* margin:20px 0 0 20px; */
           }
           .image-diagnostic-p {
               margin-top:20px;
-              line-height:20px;
-              font-size:12px;
+              line-height:24px;
+              font-size:14px;
              /* margin:20px 40px 10px 20px; */
           }
           .image-diagnostic-a {
               text-decoration:none;
-             font-size:12px;
+             font-size:14px;
              font-weight: bolder;
              /* margin:20px 0 10px 20px; */
              position:absolute;
@@ -1182,60 +1332,13 @@ html {
 
         @media only screen and (min-width:1050px) and (max-width:1200px)  { 
 
-    .global-header__nav{
-        background-color:yellow;
-        display:none;    
-
-        }
-       
-        .logo-banner::before {
-            content:"\f0c9";
-                font-family: "Font Awesome 5 Free";
-                font-weight:900;
-                width:40px;
-                display:inline-block;
-                margin-left:0px;
-                position:absolute;
-                left:-20px;
-                top:5px;
-            }
-            .logo-banner {
-                position:absolute;
-                margin-left:20px;
-               
-            }
-
-            .fa-search{
-                display:block;
-                position:absolute;
-                
-                top:17px;
-                right:30px;
-                
-                font-size:20px;
-             }
-           
-           
-        }
-        @media only screen and (min-width:700px) and (max-width:1050px) {
             .global-header__nav{
-               
+                background-color:yellow;
                 display:none;    
         
                 }
-                .lang {
-                    display:none;
-                }
-                .top-left > p {
-                    display:none;
-                }
-                .subscribe{
-                    display:none;
-                }
                
-                .top-right {
-                    display:none;
-                }
+               
                 .logo-banner::before {
                     content:"\f0c9";
                         font-family: "Font Awesome 5 Free";
@@ -1253,9 +1356,6 @@ html {
                        
                     }
         
-                    .logo-banner > i {
-                        display:none;
-                    }
                     .fa-search{
                         display:block;
                         position:absolute;
@@ -1265,29 +1365,574 @@ html {
                         
                         font-size:20px;
                      }
-                     .insights {
-                        width:270px;
-                        line-height:40.7px;
-                        /* word-wrap:break-word; */
-                        font-family:Roboto, sans-serif;
-                        font-size:29px;
-                        font-style: normal;
-                        color:#424242;
-                    }
-                    .top-wrap {
-                      position:absolute;
-                      width:100%;
-                      top:70px;
-                      left:30px;
-                      display:flex;
-                      text-align:left;
-                      justify-content: space-between;
-                   /*   background-color:green; */
-                  }
-                  .first-row-wrap > h2 {
-                  display:none;
-                }
                    
+                   
+                }
+                @media only screen and (min-width:700px) and (max-width:1050px) {
+                    .global-header__nav{
+                       
+                        display:none;    
+                
+                        }
+                        .image {
+                           display:none;
+                         
+                           /* margin-top: -50px; */
+                          }
+                        
+                        .lang {
+                            display:none;
+                        }
+                        .top-left > p {
+                            display:none;
+                        }
+                        .subscribe{
+                            display:none;
+                        }
+                       
+                        .top-right {
+                            display:none;
+                        }
+                        .logo-banner::before {
+                            content:"\f0c9";
+                                font-family: "Font Awesome 5 Free";
+                                font-weight:900;
+                                width:40px;
+                                display:inline-block;
+                                margin-left:0px;
+                                position:absolute;
+                                left:-20px;
+                                top:5px;
+                            }
+                            .logo-banner {
+                                position:absolute;
+                                margin-left:20px;
+                               
+                            }
+                
+                            .logo-banner > i {
+                                display:none;
+                            }
+                            .fa-search{
+                                display:block;
+                                position:absolute;
+                                
+                                top:17px;
+                                right:30px;
+                                
+                                font-size:20px;
+                             }
+                             .insights {
+                                width:270px;
+                                line-height:40.7px;
+                                /* word-wrap:break-word; */
+                                font-family:Roboto, sans-serif;
+                                font-size:29px;
+                                font-style: normal;
+                                color:#424242;
+                            }
+                            .top-wrap {
+                              position:absolute;
+                              width:100%;
+                              top:70px;
+                              left:30px;
+                              display:flex;
+                              text-align:left;
+                              justify-content: space-between;
+                           /*   background-color:green; */
+                          }
+                        
+                       
+
+                        .first-row-wrap > h2 {
+                            display:none;
+                          } 
+                           /*FIRST ROW BURADAN BAŞLIYOR */
+
+                        .first-row {
+                            width:100%;
+                            background-color:#F5F5F5;
+                            
+                            padding-right:15px;
+                            padding-left:15px;
+                            
+                            display:flex;
+                            justify-content:space-evenly;
+                            flex-wrap:wrap;/*Burda ilk satırda ki 1.kutumuz bu modda 100% diğerleri 50% olacağı için
+                            kutuların aşağı atması lazm kendini o yüzden flex-wrap verdik */
+                        }
+                            
+        
+                         .first-row>div:nth-child(1) {
+                            flex:2 2 100%;
+                           
+                             
+                         }
+                         .first-row>div:nth-child(2) {
+                            flex:2 2 calc(50% - 20px);
+                            /*flex-wrap kullandığımızdan dolayı boşlukları flex-shrink kendsi otomatik çıkarmaaz flex shrink işlemez  o yüzden bizim
+                            bu boşlukları çıkmamız gerekti sadece bizim boşluk 15 er gözüküyor ama burda 20px 
+                            çıkınca düzeldi buna daha sonra bakarız */
+                         
+                             
+                         }
+                         .first-row>div:nth-child(3) {
+                            flex:2 2 calc(50% - 20px);
+                           
+                             
+                         }
+                    /*Image-1 için */
+                         .image-1-wrap::after {
+                            content:" ";
+                            position:absolute;
+                            width: 100%;
+                            max-height:340px;
+                            top:0px;
+                            bottom:0px;
+                            right:0;
+                            left:0;
+                            background-color:#000;
+                            z-index: 2;
+                            opacity:0.3;
+                            }
+                          
+                        .image-1-wrap {
+                             position:relative;
+                             max-height:340px;
+                            }
+                             
+                            .image-1-wrap>img {
+                                width:100%;
+                                object-fit: cover;
+                                object-position:center;
+                                max-height:340px; /*tablet modunda img yi max height yaptık ki daha da büyümesin yoksa büyüyor normalde
+                                min-height yapmıştık şimdi ise sayfanın tamamı image-1 e ait olduğu için max height yaptık */
+                            }
+                           
+                            .image-1div {
+                               position:absolute;
+                               left:30px;
+                               bottom:30px;
+                               color:#fff;
+                              }
+                              .image-1p {
+                                 font-size:16px;
+                                 margin-bottom:60px;
+                                 position:relative;
+                                 z-index: 3;
+                                }
+                                .image-1span {
+                                   font-size:14px;
+                                   display:block;
+                                   width:200px;
+                                   margin-bottom:10px;
+                                   position:relative;
+                                   z-index: 3;
+                                } 
+
+                                 /*image-3 resim içi yazı */
+
+                .image-3-wrap {
+                    position:relative;
+                    min-height:340px;
+                    display:flex;
+                    flex-direction: column;
+                    
+                   }
+                   .image-3-wrap>img {
+                       position:relative;
+                       z-index:3;
+                       max-width:100%;
+                       min-height:170px;
+                   }
+                   .image-3-wrap>img {
+                    max-width:100%;
+                    object-fit: cover;
+                    object-position:center;
+                    min-height:198px;/*Tablet modunda bu kısmı 198px
+                     yapınca diğer kutu ile eşitlendiler */
+                   
+                }
+                   .image-3div {
+
+                      /* position:absolute;
+                      z-index:2;
+                      left:0px;
+                      bottom:0px; */
+                      width:100%;
+                      height:50%;
+                      background-color:#fff;
+                      margin-top:0px;
+                      display:flex;
+                      flex-direction:column;
+                      align-items:center;
+                      justify-content:space-between;
+                      
+                      color:#000;
+                      box-sizing:border-box;
+                      padding-bottom:30px;
+                      /* padding-left:30px;  */
+                      /* border:1px solid #000; */
+                     }
+                     .image-3p {
+                         width:80%;
+                        font-size:20px;/*Tablet modunda burası büyüyor */
+                       /* margin-bottom:55px; */
+                        text-align: center;
+                        line-height:25px;
+                      /*  margin-left:10px; */
+                    }
+                    .image-3span {
+                       font-size:16px; /*Tablet modunda burası büyüyor */
+                      /* margin-left:25%;*/
+                       text-align: center;
+                       
+                       } 
+
+                        /*image-thumbnail resim içi yazı */
+                        .thumbnail-wrap {
+                            position:relative;
+                            min-height:340px;
+                            display:flex;
+                            flex-direction: column;
+                   
+                           }
+                           .thumbnail-wrap>img {
+                               position:relative;
+                               z-index:3;
+                               min-height:170px;
+                           }
+
+                           .thumbnail-wrap>img {
+                            max-width:100%;
+                            object-fit: cover;
+                            object-position:center;
+                            min-height:198px; /* 
+                            Tablet modunda resimleri 50% yapınca
+                            bu resim tablet moduna gelince diğer
+                            kendine benzeyen img3 ten daha çok küçülmüş
+                            nedendir buna da bakalım ondan dolayı img ten farklı
+                            olarak min-heihgt 170px ten 198px yapmış olduk
+                            */
+                           
+                            
+                        }
+                           .image-thumbnaildiv {
+        
+                              /* position:absolute;
+                              z-index:2;
+                              left:0px;
+                              bottom:0px; */
+                              width:100%;
+                              height:50%;
+                              background-color:#fff;
+                              margin-top:px;
+                              display:flex;
+                              flex-direction:column;
+                              align-items:center;
+                              justify-content:space-between;
+                              
+                              color:#000;
+                              box-sizing:border-box;
+                              padding-bottom:30px;
+                              /* padding-left:30px;
+                              border:1px solid #000; */
+                             }
+                             .image-thumbnailp {
+                                 width:80%;
+                                 font-size:20px;/*Tablet modunda burası büyüyor */
+                               /*  margin-bottom:55px; */
+                                text-align: center;
+                                line-height:25px;
+                              /*  margin-left:10px; */
+                            }
+                            .image-thumbnailspan{
+                                font-size:15px;/*Tablet modunda burası büyüyor */
+                             /*  margin-left:25%; */
+                               } 
+
+                            /*SECOND CHILD BURDAN BAŞLIYOR */
+
+                            .second-row {
+                                width:100%;
+                                background-color:#F5F5F5;
+                                padding-right:15px;
+                                padding-left:15px;
+                                display:flex;
+                                justify-content:space-evenly;
+                                flex-wrap:wrap;
+                                 padding-bottom:50px; /* */
+                               
+                             
+                            }
+
+                            .second-row>div>img {
+                                max-width:100%;
+                               
+                               /* min-height:340px; */
+                                object-fit: cover;
+                                object-position:bottom;
+                             
+                               }   
+                            
+            
+                             .second-row>div:nth-child(n+1):nth-child(-n+2) {
+                                flex:2 2 calc(50% - 20px);
+                              
+                                 
+                             }
+                      
+                             .second-row>div:nth-child(3) {
+                                
+                                flex:2 2 100%;
+                                
+                                 
+                             }
+
+                               /*image-5 resim içi yazı */
+
+                       .image-5-wrap::after {
+                        content:" ";
+                        position:absolute;
+                        width: 100%;
+                        height:100%;
+                        
+                        /*top:0px;
+                        bottom:0px;
+                        right:0;
+                        left:0; */
+                        background-color:#000;
+                        z-index: 2;
+                        opacity:0.3;
+                        /*Burada bir türlü widht ve height i 100% den fazla arttıramıyoruz
+                        ancak transform scale yöntemi ile arttırabildik ki biz img miz düzgün çıkmadı 
+                        o yüzden biraz img yi yüksekliğini arttırdık ama gölge artmadı bir türlü
+                        height istediğimiz noktaya gelmedi ki buna da bakalım ayrıca
+                        bizde transform scale ile widht i 1 ile height i ise 1.3 ile çarpmış gibi
+                        büyüttük.Ama sonradan farkettim ki dikine büyürken hem alttan hem üstten beraber büyüyor bana sadece alltan büyüme lazımdı
+                        onun için normal boyuta getirdim tekrardan*/
+                        transform:scale(1,1);
+                        }
+
+                        /* Second-2 row undaki img5 yani büyük resim*/
+                      
+                    .image-5-wrap {
+                         position:relative;
+                         max-height:340px;
+
+                         /*
+                            ÖNEMLİİİİİ!!!!!!Ama sorunumu google ing ce yazdım oradan buldum aklıma gelmedi ilk başta
+                         overflow hidden ile biz image imizi içinde bulunduğu kutunun dışarı taşmamasını sağlamış olduk bu çok önemli sırf bunu
+                         halletmk için 1,5 saattir uğraştırm çünkü resmi belli bir height te tutmaya çalışıyorum ama resmin gözükmesi gereken üst kısmı
+                         gözükmüyor object position top çalışmıyor ve object position ile resim de kutu içerisinde dönebiliyor galiba o da tam olmadı bende 
+                         mecbur resmi height olarak büyüttüm gözükmesini istediğim kısım geldi image kısmımda alttan fazlalığım var işte onu da owerflow hidden ile
+                         halledebiliriz!!!!*/
+                       overflow: hidden;
+                        
+                      
+                        }
+                         /*NOTTT!!!!BURADA PROBLEMİMİZ DEVAM EDİYOR HALA RESMİN GÖRÜNTÜSÜNÜ TAM AYARLAMAYAMADIK */
+                        .image-5-wrap>img {
+                            position:relative;
+                            width:100%;
+                            object-fit: cover;
+                 
+                            object-position:;
+                            max-height:390px;
+                        }
+                      
+                          
+                       
+                       
+                        .image-5div {
+                           position:absolute;
+                           left:30px;
+                           bottom:30px;
+                           color:#fff;
+                          }
+                          .image-5p {
+                              width:360px;
+                             font-size:16px;
+                             margin-bottom:60px;
+                             position:relative;
+                             z-index: 3;
+                            }
+                            .image-5span {
+                               font-size:14px;
+                               display:block;
+                               width:200px;
+                               margin-bottom:10px;
+                               position:relative;
+                               z-index: 3;
+                            } 
+
+                               
+              .top-wrap {
+               position:relative; 
+               z-index: 4;
+              
+                width:100%;
+               /*  */top:80px;
+                left:30px;
+                display:flex;
+                text-align:left;
+                justify-content: space-between;
+             /*   background-color:green; */
+            }
+            .first-row-wrap {
+                
+                margin-top:150px;
+            }
+                       
+            .article-content {
+                width:100%;
+                display:flex;
+                justify-content:space-between;
+                align-items: flex-start;/*Burada üst başlık hizalarını eşitleriz bu şekilde
+                önemli bir işimizi görmüş oldu */
+                flex-wrap:wrap;
+              
+              }
+          
+            .article-3>p,a {
+                max-width:420px; /* text imiz bir yerden
+                sonra kendisini aşağı atsın alt satıra 
+                geçsind diye max-width kullanıyoruz */
+               
+                line-height:24px;
+            }
+
+            .article-content p {
+                font-size:16px;
+            }
+
+            .article-content a {
+                text-decoration:none;
+                display:block;
+                font-size:16px;
+                color:#4285f4;
+                
+
+            }
+            .article-content h3 {
+                color:#424242;
+                font-size:20px;
+                font-family:Roboto, sans-serif;
+
+            }
+            /*Figure Tools alttaki 4 lü yanyana resmin tabletteki hale çeviriyoruz  */
+
+            .figure-tools {
+                width:100%;
+                height:auto;
+                display:flex;
+                justify-content:space-evenly;
+              flex-wrap:wrap;
+                padding:0 20px;
+            }   /*flex wrap  kullanarak kutuları aşağı atılmasını sağladık */
+         
+
+            .figure-tools>div:nth-child(n+1) {
+                flex:1 1 calc(50% - 30px); /*her satıra 2 kutu geleceği için ve flex wrap kullanıldığı için yukarda aradaki boşlukları
+                da çıkarmamız gerekti */
+            
+                margin:10px;
+            }
+            .figure-tools h3 {
+                color:#424242;
+                font-size:18px;
+                font-family:Roboto, sans-serif;
+                /* margin:20px 0 0 20px; */
+              }
+              .figure-tools p {
+                  margin-top:20px;
+                  line-height:24px;
+                  font-size:14px;
+                  margin-bottom:0px;
+                 /* margin:20px 40px 10px 20px; */
+              }
+              .figure-tools a {
+                  text-decoration:none;
+                 font-size:14px;
+                 font-weight: bolder;
+                 /* margin:20px 0 10px 20px; */
+                 position:absolute;
+                 bottom:0;
+
+              } 
+
+            
+
+            .figure-tools>div>img {
+                width:100%;
+                height:50%;
+                object-fit: cover;
+                object-position: center;
+                box-sizing:border-box;
+                
+            }
+
+            .image-culture {
+                        
+                width:100%;
+                height:auto;
+                /*padding ile yazılarımızın sağa sola aşağı yukarı boşluklarını ayarlıyoruz ancak biz buradan ayarlarken üstteki resim
+                kısmını boyutu büyüyor bu neden olabilir.Bende img height 45% yi 40% a indirdim o zaman tam oturdu */
+                padding:20px 30px 10px 20px;   
+                box-sizing:border-box;
+               
+            }
+            .culture {
+               
+                background-color: #fff;
+                box-shadow: 1px 1px 5px;
+                position:relative;
+               
+                
+            }
+            .image-culture {
+                
+            }
+              
+          .image-culture-h3 {
+            color:#424242;
+            font-size:18px;
+            font-family:Roboto, sans-serif;
+            /* margin:20px 0 0 20px; */
+          }
+          /* Burada p ile a arasındaki boşluğu üstteki resmin height ini yükselterek ayarlayabildik aradaki yani p ile a arasındaki
+          boşluk nerden kaynaklanıyor bualamadık ancak img yi aslında o kadar büyütmemeli idik ama şimdilik bu şekilde bıraktık burayı
+          */
+          .image-culture-p {
+                margin-top:20px;
+                line-height:20px;
+                font-size:12px;
+                margin-bottom:0px;
+               
+               /* margin:20px 40px 10px 20px; */
+            }
+
+          .image-culture-a {
+            
+              text-decoration:none;
+             font-size:14px;
+             font-weight: bolder;
+             /* margin:20px 0 10px 20px;
+             position:absolute;
+             */
+             
+             
+
+          } 
+                        
+                    } 
+        
+        
+                           
+                            
+                         
+                           
+               
 
 
 
@@ -1295,7 +1940,7 @@ html {
                     
                  
                    
-        } 
+      
                
            
      
