@@ -119,8 +119,7 @@ body {
   position: relative;
   z-index: 2;
 
-  font-size: 0.9rem; /*İncelenmeli burayı artırınca ikon artıyor ama direk ikonun koydu
-            ğumuz yerde font-size artırınca artmıyor buna bakalım */
+  font-size: 0.9rem; 
   /* padding: 0 5px; */
   /* padding:10px 0 10px 0; Paddingi burdan verince kutu kayıyor o zaman a dan paddin vermeyi deneriz*/
   box-sizing: border-box;
@@ -488,7 +487,8 @@ Burada öncelikle hem resme hem de onu kavrayan dive min height verdik ki ekran 
 kendi oranlarına göre küçülüyor ve bir i az biri fazla küçülüyor görüntü bozuluyor bizde yüksekliği
 min standarta aldık ancak şuna dikkat edelim ilk resim 100% yükseklikte 2 ve 3.resimler ise 50% yüksekliğinde
 bundan dolayı ilk resme min-height:340 derken 2 ve 3.resme min-height:170px diyoruz ancak hepsinin kavrayan
-div leri aynı yükseklikte olduğu için her üç kavarayan dive de min-height:340px diyoruz */
+div leri aynı yükseklikte olduğu için her üç kavarayan dive de min-height:340px diyoruz.
+Burada 340px i biz resmimizi tam olarak bu şekilde göstereceğini düşündüğümüz için verdik  */
 /*ÖNEMLİ!!!!!
 Özellikle kart tasarımı gibi tasarımlarda üstte resim altta yazı olan ve yazılara arası boşluklar olan
 tasarımlar yapılırken mümkün se yazılar arası boşlukları biz direk yazıların kendisine margin 
@@ -502,6 +502,12 @@ bunu flex box ile yaparsak o zaman daha mantıklı olur ve o tür sorunlar almay
                  max-height verirsek dışarı taşma olmaz öbür türlü dışarı taşıyor bu da problem olur
                  Yani resme min height 340px resmin içindeki div e de  max height 340 px verirsek beraber hareket 
                  etmiş olurlar */
+
+                 /*Biz min height veya max height ayarlamalarını problemlerimize göre yaparız yani mesela resme bakıyoruz ki ekran küçülünce o da
+                 küçülüyor bizde diyoruz ki ekran küçülsün ama sen aynı kal o yüzden hemen min-height veriyorz ki sen bu yüksekliğini altına
+                 inme demiş oluyoruz ayrıca başka bir problem olarak da resmin üzerine perde çektik ekran küçülünce resmin üzerine çektiğimiz perde ise büyümeye başlıyor işte bizde perdeyi çektiğimiz kısım hangi div in içinde ise oraya sen belli bir yüksekliği geçme manasında
+                 max height veriyoruz ve bunun souncunda resmin küçülmesini durdururken üzerine çektiğimiz siyah perdeyi de büyümekten kurtarıp 
+                 ekran boyutu değişince bell i biri yükseklikte kalmasını sağlıyoruz sonuç olarak problemimizi çözmüş oluyoruz */
 .image-1-wrap::after {
   content: " ";
   position: absolute;
@@ -654,8 +660,7 @@ bunu flex box ile yaparsak o zaman daha mantıklı olur ve o tür sorunlar almay
 
 /*image-4 resim içi yazı */
 
-/*ÇOK ENTERESAN BİR TEK BURDA image-4-wrap class ına verdiğimiz özellikleri uygulamıyor bunu da html kısmında inline style 
-              yazınca fakettik şimdilik probblemleri inline style ile çözdük ama bunun sebebine bakalı ayrıca  */
+
 .image-4-wrap {
   position: relative;
   min-height: 340px;
@@ -676,16 +681,9 @@ bunu flex box ile yaparsak o zaman daha mantıklı olur ve o tür sorunlar almay
   min-height: 170px;
 }
 .image-4div {
-  /* position:absolute;
-                                      z-index:2;
-                                      left:0px;
-                                      bottom:0px; */
+
   width: 100%;
-  height: 50%; /*Burda bir oturmama problemi oldu normalde 50% ile oturuyor
-                                      diğerlerindee ayrıca üstteki resim ile alttaki yazı kısmı arasında  boşluk
-                                      kalıyor normalde yine flex ile yaptık diğerlerinde boşluk kalmadı 
-                                      bir tek bunda kaldı buna da bakalım ayrıca şimdilik ufak müdahelelerle 
-                                      çözüp geçiyoruz sonra asıl probleme bakabiliriz */
+  height: 50%; 
   background-color: #fff;
   margin-top: px;
   display: flex;
@@ -738,13 +736,9 @@ bunu flex box ile yaparsak o zaman daha mantıklı olur ve o tür sorunlar almay
                               left:0px;
                               bottom:0px; */
   width: 100%;
-  height: 54%; /*Burda bir oturmama problemi oldu normalde 50% ile oturuyor
-                              diğerlerindee ayrıca üstteki resim ile alttaki yazı kısmı arasında  boşluk
-                              kalıyor normalde yine flex ile yaptık diğerlerinde boşluk kalmadı 
-                              bir tek bunda kaldı buna da bakalım ayrıca şimdilik ufak müdahelelerle 
-                              çözüp geçiyoruz sonra asıl probleme bakabiliriz */
+  height: 50%; 
   background-color: #fff;
-  margin-top: -5px;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
